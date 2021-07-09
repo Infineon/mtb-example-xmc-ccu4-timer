@@ -4,7 +4,7 @@ This code example demonstrates the usage of the CCU4 timer by blinking LED using
 
 ## Requirements
 
-- [ModusToolbox® software](https://www.cypress.com/products/modustoolbox-software-environment) v2.3
+- [ModusToolbox&trade; software](https://www.cypress.com/products/modustoolbox-software-environment) v2.3
 - [SEGGER J-Link software](https://www.segger.com/downloads/jlink/#J-LinkSoftwareAndDocumentationPack)
 - Programming Language: C
 - Associated Parts: All [XMC™ MCU](https://www.infineon.com/cms/en/product/microcontroller/32-bit-industrial-microcontroller-based-on-arm-cortex-m/) parts
@@ -106,6 +106,18 @@ Various CLI tools include a `-h` option that prints help information to the term
 
 You can debug the example to step through the code. In the IDE, use the **\<Application Name> Debug (JLink)** configuration in the **Quick Panel**. For more details, see the "Program and Debug" section in the [Eclipse IDE for ModusToolbox User Guide](https://www.cypress.com/MTBEclipseIDEUserGuide).
 
+## Design and implementation
+
+In this example, a CCU4 Timer is implemented using **Device Configurator** and the “CCU4 1.0” personality. The slice is configured in compare mode. The Prescaler and period values of the slice are set in order to have a period of 1s. To visualize the usage of the timer, a pin was configured by “pin 1.0” personality which is connected to the user LED. 
+
+![1](images/timer.png)
+
+The code consists of  the following steps:
+
+* **Step 1:** Initializes and enables a CCU4 timer period match interrupt. It also defines the function of the interrupt handler - `TIMER_0_PERIOD_MATCH_EVENT_HANDLER()`. By calling the interrupt function, the `timer_interrupt_flag` variable is set to TRUE.
+
+* **Step 2:** Uses the `timer_interrupt_flag` variable to detect the interrupt event and to toggle the user LED at approximately 1 Hz in the endless while-loop in the main function.
+
 ## Related Resources
 
 | Kit Guides                                            |                                                              |
@@ -134,10 +146,11 @@ For XMC MCU devices, see [32-bit XMC™ Industrial Microcontroller based on Arm�
 
 Document Title: *CE231958* - *XMC MCU: CCU4 Timer*
 
-| Version | Description of Change |
-| ------- | --------------------- |
-| 0.5.0   | New code example      |
+| Version | Description of Change                         |
+| ------- | --------------------------------------------- |
+| 0.5.0   | New code example                              |
 | 1.0.0   | Updated to support ModusToolbox software v2.3 |
+| 1.0.1   | Updated README                                |
 ------
 
 All other trademarks or registered trademarks referenced herein are the property of their respective owners.
