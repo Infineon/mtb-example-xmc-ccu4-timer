@@ -36,7 +36,6 @@
 * DEALINGS IN THE SOFTWARE.
 *                                                                              
 *****************************************************************************/
-
 #include "cybsp.h"
 #include "cy_utils.h"
 
@@ -66,6 +65,7 @@ static volatile bool timer_interrupt_flag = false;
 *  int
 *
 *******************************************************************************/
+
 int main(void)
 {
     cy_rslt_t result;
@@ -94,6 +94,7 @@ int main(void)
             /* Clear the flag */
             timer_interrupt_flag = false;
 
+            /* Toggle the output port of GPIO */
             XMC_GPIO_ToggleOutput(CYBSP_USER_LED_PORT, CYBSP_USER_LED_PIN);
         }
     }
@@ -114,6 +115,7 @@ int main(void)
 *******************************************************************************/
 void TIMER_0_PERIOD_MATCH_EVENT_HANDLER(void)
 {
+    /* Set the flag */
     timer_interrupt_flag = true;   
 }
 
